@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="AutomationExerciseTestSuite" verbose="1">
+
+    <parameter name="browser" value="chrome"/>
+    <parameter name="headless" value="false"/>
+
+    <test name="CriticalFunctionalityTests">
+        <classes>
+
+        </classes>
+    </test>
+
+</suite>

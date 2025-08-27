@@ -56,5 +56,44 @@ public class ConfigManager {
         }
     }
 
+    public String getApiUrl() {
+        return getProperty("api.url");
+    }
+
+    public String getBaseUrl() {
+        return getProperty("base.url");
+    }
+
+    public String getBrowser() {
+        return getProperty("browser", "chrome");
+    }
+
+    public boolean isHeadless() {
+        return getBooleanProperty("headless", false);
+    }
+
+    public int getImplicitTimeout() {
+        return getIntProperty("implicit.timeout", 5);
+    }
+
+    public int getExplicitTimeout() {
+        return getIntProperty("explicit.timeout", 10);
+    }
+
+    public String getTestUserEmail() {
+        return getProperty("test.user.email");
+    }
+
+    public String getTestUserPassword() {
+        return getProperty("test.user.password");
+    }
+
+    public String getTestUserName() {
+        return getProperty("test.user.name");
+    }
+    public String getSearchProduct() {
+        return getProperty("search.product", "T-shirt");
+    }
+
 }
 

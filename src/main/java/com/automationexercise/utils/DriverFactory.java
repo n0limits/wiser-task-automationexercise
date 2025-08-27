@@ -52,4 +52,11 @@ public class DriverFactory {
         return driver;
     }
 
+    public static void quitDriver() {
+        WebDriver driver = driverThreadLocal.get();
+        if (driver != null) {
+            driver.quit();
+            driverThreadLocal.remove();
+        }
+    }
 }

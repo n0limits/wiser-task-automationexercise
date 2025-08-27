@@ -95,5 +95,8 @@ public class ConfigManager {
         return getProperty("search.product", "T-shirt");
     }
 
+    public String getSearchProduct(String customProduct) {
+        return customProduct != null ? customProduct : getSearchProduct();
+    }
 }
 

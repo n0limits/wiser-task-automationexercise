@@ -11,6 +11,8 @@
 .mtj.tmp/
 .idea/
 target/
+**/properties/
+
 
 # Package Files #
 *.jar

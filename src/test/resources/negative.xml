@@ -6,10 +6,21 @@
 
     <test name="CriticalFunctionalityPositiveTests">
         <classes>
+            <class name="com.automationexercise.UserRegistrationTest">
+                <methods>
+                    <include name="testCannotRegisterWithEmptyRequiredFields"/>
+                </methods>
+            </class>
             <class name="com.automationexercise.ProductSearchAddToCartTest">
                 <methods>
                     <include name="testSearchWithEmptyQuery"/>
                     <include name="testSearchWithNoResults"/>
+                </methods>
+            </class>
+            <class name="com.automationexercise.LoginLogoutTest">
+                <methods>
+                    <include name="testCannotLoginWithEmptyFields"/>
+                    <include name="testCannotLoginWithInvalidCredentials"/>
                 </methods>
             </class>
         </classes>

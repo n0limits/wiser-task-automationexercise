@@ -16,9 +16,6 @@ public class HomePage extends BasePage {
     @FindBy(css = "a[href='/products']")
     private WebElement productsLink;
 
-    @FindBy(css = "a[href='/view_cart']")
-    private WebElement cartLink;
-
     public HomePage(WebDriver driver) {
         super(driver);
     }
@@ -35,8 +32,5 @@ public class HomePage extends BasePage {
         click(productsLink);
     }
 
-    public void goToCart() {
-        click(cartLink);
-    }
 }
 

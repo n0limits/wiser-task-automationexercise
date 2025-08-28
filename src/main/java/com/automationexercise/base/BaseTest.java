@@ -73,16 +73,4 @@ public abstract class BaseTest {
         DriverFactory.quitDriver();
     }
 
-    /**
-     * Navigates the browser to the application's home page URL.
-     * Uses the base URL configured in config.properties file.
-     * This method can be called during test execution to return to the starting page.
-     *
-     * @throws RuntimeException if navigation fails
-     */
-    protected void navigateToHome() {
-        logger.info("Navigating to home page");
-        driver.get(config.getBaseUrl());
-    }
-
 }

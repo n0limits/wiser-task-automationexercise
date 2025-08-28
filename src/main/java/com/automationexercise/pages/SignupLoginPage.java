@@ -75,26 +75,6 @@ public class SignupLoginPage extends BasePage {
         return isElementVisible(loginErrorMessage);
     }
 
-    /**
-     * Check if signup error message is displayed (email already exists)
-     */
-    public boolean isSignupErrorDisplayed() {
-        return isElementVisible(signupErrorMessage);
-    }
-
-    /**
-     * Get login error message text
-     */
-    public String getLoginErrorMessage() {
-        return getText(loginErrorMessage);
-    }
-
-    /**
-     * Get signup error message text
-     */
-    public String getSignupErrorMessage() {
-        return getText(signupErrorMessage);
-    }
 
     /**
      * Verify login page is loaded by checking both sections are visible

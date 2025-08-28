@@ -31,7 +31,7 @@ public abstract class BasePage {
     }
 
     /**
-     * Click on element with explicit wait
+     * Click on element with explicit wait and js executor fallback
      */
     protected void click(WebElement element) {
         try {
@@ -39,13 +39,26 @@ public abstract class BasePage {
             clickableElement.click();
             logger.debug("Clicked element: {}", element);
         } catch (TimeoutException e) {
-            logger.error("Element not clickable: {}", element);
-            throw new RuntimeException("Failed to click element: " + element, e);
+            logger.error("Element not clickable within timeout: {}", element, e);
+            // try JS click fallback
+            try {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+                logger.debug("Clicked element via JS: {}", element);
+            } catch (Exception jsEx) {
+                throw new RuntimeException("Failed to click element via JS: " + element, jsEx);
+            }
         } catch (Exception e) {
             logger.error("Error clicking element: {}", element, e);
-            throw new RuntimeException("Failed to click element: " + element, e);
+            // try JS click fallback
+            try {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+                logger.debug("Clicked element via JS after error: {}", element);
+            } catch (Exception jsEx) {
+                throw new RuntimeException("Failed to click element via JS: " + element, jsEx);
+            }
         }
     }
+
 
     /**
      * Send keys to element with explicit wait

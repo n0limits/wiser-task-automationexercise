@@ -32,8 +32,6 @@
             <version>${selenium.version}</version>
         </dependency>
 
-
-
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>

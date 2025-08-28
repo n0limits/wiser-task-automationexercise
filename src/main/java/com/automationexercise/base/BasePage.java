@@ -333,7 +333,7 @@ public abstract class BasePage {
      *
      * @return the current URL as a string
      */
-    protected String getCurrentUrl() {
+    public String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
 

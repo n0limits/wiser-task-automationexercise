@@ -83,94 +83,52 @@ public class AccountCreationPage extends BasePage {
     public void fillAccountInformation(String title, String password,
                                        String day, String month, String year,
                                        boolean newsletter, boolean offers) {
+
         if (title != null && !title.isBlank()) {
             if ("Mr.".equalsIgnoreCase(title)) {
                 titleMr.click();
+                logger.debug("Selected title: Mr.");
             } else if ("Mrs.".equalsIgnoreCase(title)) {
                 titleMrs.click();
+                logger.debug("Selected title: Mrs.");
+            } else {
+                logger.debug("Skipped title selection (invalid value: {})", title);
             }
         }
 
-        if (password != null && !password.isBlank()) {
-            passwordInput.clear();
-            passwordInput.sendKeys(password);
-        }
+        sendKeysIfPresent(passwordInput, password);
 
-        if (day != null && !day.isBlank()) {
-            new Select(dobDaySelect).selectByValue(day);
-        }
-        if (month != null && !month.isBlank()) {
-            new Select(dobMonthSelect).selectByValue(month);
-        }
-        if (year != null && !year.isBlank()) {
-            new Select(dobYearSelect).selectByValue(year);
-        }
+        selectByValueIfPresent(dobDaySelect, day);
+        selectByValueIfPresent(dobMonthSelect, month);
+        selectByValueIfPresent(dobYearSelect, year);
 
         if (newsletter && !newsletterCheckbox.isSelected()) {
             newsletterCheckbox.click();
+            logger.debug("Checked newsletter checkbox");
         }
+
         if (offers && !offersCheckbox.isSelected()) {
             offersCheckbox.click();
+            logger.debug("Checked offers checkbox");
         }
     }
-
-
 
     public void fillAddressDetails(String firstName, String lastName, String company,
                                    String mandatoryAddress, String nonMandatoryAddress, String country,
                                    String state, String city, String zipcode,
                                    String mobile) {
 
-        if (firstName != null && !firstName.isBlank()) {
-            firstNameInput.clear();
-            firstNameInput.sendKeys(firstName);
-        }
-
-        if (lastName != null && !lastName.isBlank()) {
-            lastNameInput.clear();
-            lastNameInput.sendKeys(lastName);
-        }
-
-        if (company != null && !company.isBlank()) {
-            companyInput.clear();
-            companyInput.sendKeys(company);
-        }
-
-        if (mandatoryAddress != null && !mandatoryAddress.isBlank()) {
-            address1Input.clear();
-            address1Input.sendKeys(mandatoryAddress);
-        }
-
-        if (nonMandatoryAddress != null && !nonMandatoryAddress.isBlank()) {
-            address2Input.clear();
-            address2Input.sendKeys(nonMandatoryAddress);
-        }
-
-        if (country != null && !country.isBlank()) {
-            new Select(countrySelect).selectByVisibleText(country);
-        }
-
-        if (state != null && !state.isBlank()) {
-            stateInput.clear();
-            stateInput.sendKeys(state);
-        }
-
-        if (city != null && !city.isBlank()) {
-            cityInput.clear();
-            cityInput.sendKeys(city);
-        }
-
-        if (zipcode != null && !zipcode.isBlank()) {
-            zipcodeInput.clear();
-            zipcodeInput.sendKeys(zipcode);
-        }
-
-        if (mobile != null && !mobile.isBlank()) {
-            mobileNumberInput.clear();
-            mobileNumberInput.sendKeys(mobile);
-        }
+        sendKeysIfPresent(firstNameInput, firstName);
+        sendKeysIfPresent(lastNameInput, lastName);
+        sendKeysIfPresent(companyInput, company);
+        sendKeysIfPresent(address1Input, mandatoryAddress);
+        sendKeysIfPresent(address2Input, nonMandatoryAddress);
+        selectByVisibleTextIfPresent(countrySelect, country);
+        sendKeysIfPresent(stateInput, state);
+        sendKeysIfPresent(cityInput, city);
+        sendKeysIfPresent(zipcodeInput, zipcode);
+        sendKeysIfPresent(mobileNumberInput, mobile);
     }
-
 
     public void createAccount() {
         createAccountButton.click();
@@ -183,4 +141,5 @@ public class AccountCreationPage extends BasePage {
     public void clickRegisteredUserContinueButton() {
         continueButton.click();
     }
+
 }

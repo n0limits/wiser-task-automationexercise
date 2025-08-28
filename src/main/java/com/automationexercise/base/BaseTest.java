@@ -45,7 +45,7 @@ public abstract class BaseTest {
         setUp(null);
     }
 
-    @AfterMethod
+//    @AfterMethod
     public void tearDown(ITestResult result) {
         String testName = result.getMethod().getMethodName();
         String status = result.isSuccess() ? "PASSED" : "FAILED";

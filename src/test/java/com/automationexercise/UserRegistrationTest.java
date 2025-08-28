@@ -17,8 +17,8 @@ public class UserRegistrationTest extends BaseTest {
 
 
     @Test
-    public void validateUserRegistration() throws InterruptedException {
-        // Manually initialize driver with default config (I'vre done this as I want to be able to use different webdrivers)
+    public void validateUserRegistration() {
+        // Manually initialize driver with default config (I'vre done this as I want to be able to use different browser types)
         setUp();
         // Step 1: Navigate to homepage
         HomePage homePage = new HomePage(driver);

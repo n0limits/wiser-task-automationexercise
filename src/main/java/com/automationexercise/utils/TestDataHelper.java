@@ -19,7 +19,7 @@ public class TestDataHelper extends BaseTest {
     public static UserCredentials createNewUserAccount(WebDriver driver) {
         ConfigManager config = ConfigManager.getInstance();
 
-        // Generate unique credentials
+        // Generate unique credentials, if not used will default to configg.properties
         String uniqueEmail = "test_" + UUID.randomUUID() + "@example.com";
         String name = config.getTestUserName();
         String password = config.getTestUserPassword();

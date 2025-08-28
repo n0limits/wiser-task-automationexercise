@@ -10,11 +10,14 @@ public class NavigationBar extends BasePage {
     @FindBy(xpath = "//a[contains(text(),'Logged in as')]")
     private WebElement loggedInAsText;
 
-    @FindBy(xpath = "//a[text()='Logout']")
+//    @FindBy(xpath = "//a[text()='Logout']")
+//    private WebElement logoutButton;
+
+    @FindBy(xpath = "//a[contains(text(), 'Logout')]")
     private WebElement logoutButton;
 
-    @FindBy(css = "a[href='/login']")
-    private WebElement signupLoginLink;
+    @FindBy(xpath = "//a[contains(text(), 'Signup / Login')]")
+    private WebElement signupLoginNavigationLink;
 
     public NavigationBar(WebDriver driver) {
         super(driver);
@@ -28,8 +31,11 @@ public class NavigationBar extends BasePage {
         logoutButton.click();
     }
 
-    public boolean isLogoutSuccessful() {
-        return isElementVisible(signupLoginLink);
+    /**
+     * Check if user is on login page
+     */
+    public boolean isRedirectedToLoginPage() {
+        return getCurrentUrl().contains("/login");
     }
 }
 

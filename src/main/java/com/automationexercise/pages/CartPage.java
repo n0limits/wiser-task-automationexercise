@@ -41,22 +41,6 @@ public class CartPage extends BasePage {
         super(driver);
     }
 
-    /**
-     * Original method - exact match verification
-     */
-    public boolean verifyProductInCart(String expectedName, String expectedPrice, int expectedQuantity) {
-        if (isCartEmpty()) {
-            return false;
-        }
-
-        String name = getText(productName);
-        String price = getText(productPrice);
-        String qty = getText(productQuantity);
-
-        return name.equals(expectedName)
-                && price.equals(expectedPrice)
-                && qty.equals(String.valueOf(expectedQuantity));
-    }
 
     /**
      * Enhanced method - flexible verification for search results
@@ -74,37 +58,10 @@ public class CartPage extends BasePage {
     }
 
     /**
-     * Enhanced method - flexible verification for search results
-     */
-    public boolean verifyProductInCartName(String expectedNamePart) {
-        if (isCartEmpty()) {
-            return false;
-        }
-
-        String name = getText(productName);
-
-        return name.toLowerCase().contains(expectedNamePart.toLowerCase());
-    }
-
-    /**
      * Check if cart is empty
      */
     public boolean isCartEmpty() {
         return cartItems.isEmpty() || isElementVisible(emptyCartMessage);
-    }
-
-    /**
-     * Get number of items in cart
-     */
-    public int getCartItemCount() {
-        return cartItems.size();
-    }
-
-    /**
-     * Navigate to home page from cart
-     */
-    public void goToHome() {
-        click(homeLink);
     }
 
     /**

@@ -13,8 +13,7 @@ public class ProductSearchAddToCartTest extends BaseTest {
     @Test
     public void testSearchAndAddProductToCart() {
         // Step 1: Navigate to the website
-        // default setUp() for chrome, use  setUp("browserName") for different browsers
-        setUp();
+        setUp(); // default setUp() for chrome, or setUp("browserName") for other browsers
 
         HomePage homePage = new HomePage(driver);
         homePage.closeInitialDialog();
@@ -22,8 +21,8 @@ public class ProductSearchAddToCartTest extends BaseTest {
 
         // Step 2: Search for a specific product
         ProductsPage productsPage = new ProductsPage(driver);
-//        String searchTerm = config.getSearchProduct(); // Gets "T-shirt" from config
-        String searchTerm = "Top";
+// String searchTerm = config.getSearchProduct(); // Gets default "T-shirt" from config.properties
+        String searchTerm = "Top"; // could also be config.getSearchProduct()
         productsPage.searchProduct(searchTerm);
 
         // Step 3: Verify that relevant search results are displayed
@@ -33,11 +32,16 @@ public class ProductSearchAddToCartTest extends BaseTest {
         Assert.assertTrue(productsPage.doSearchResultsContainTerm(searchTerm),
                 "Search results do not contain the searched term: " + searchTerm);
 
-        // Step 4: Add first product to cart from search results and view cart via modal
+        // Step 4: Capture first product details before adding to cart
+        String expectedName = productsPage.getFirstProductName();
+        String expectedPrice = productsPage.getFirstProductPrice();
+        int expectedQty = 1; // default quantity when first adding product
+
+        // Step 5: Add first product to cart from search results and view cart via modal
         productsPage.addFirstProductToCart();
         productsPage.viewCartFromModal();
 
-        // Step 5: Navigate to the cart page and verify product details
+        // Step 6: Navigate to the cart page and verify product details
         CartPage cartPage = new CartPage(driver);
 
         Assert.assertTrue(cartPage.isCartPageLoaded(),
@@ -46,11 +50,13 @@ public class ProductSearchAddToCartTest extends BaseTest {
         Assert.assertFalse(cartPage.isCartEmpty(),
                 "Cart should not be empty after adding product");
 
-        // Verify product details match (using flexible verification)
-        Assert.assertTrue(cartPage.verifyProductInCartContains(searchTerm, 1),
-                "Product details in cart do not match the selected product");
+        Assert.assertTrue(cartPage.verifyProductInCartContains(expectedName, expectedQty),
+                "Product in cart does not match expected name or quantity");
 
-        // Log cart details using existing CartPage methods
+        Assert.assertEquals(cartPage.getCartProductPrice(), expectedPrice,
+                "Product price in cart does not match the selected product");
+
+        // Step 7: Log cart details for debugging
         logger.info("Product added to cart - Name: {}, Price: {}, Quantity: {}",
                 cartPage.getCartProductName(), cartPage.getCartProductPrice(), cartPage.getCartProductQuantity());
     }

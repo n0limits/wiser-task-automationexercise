@@ -11,6 +11,10 @@ import org.testng.annotations.Test;
 
 import java.util.UUID;
 
+/**
+ * Test class for user registration functionality
+ */
+
 public class UserRegistrationTest extends BaseTest {
 
     private final ConfigManager config = ConfigManager.getInstance();
@@ -64,5 +68,53 @@ public class UserRegistrationTest extends BaseTest {
                 "User is not logged in after account creation.");
     }
 
-}
+    @Test
+    public void testCannotRegisterWithEmptyRequiredFields() {
+        setUp();
 
+        HomePage homePage = new HomePage(driver);
+        homePage.closeInitialDialog();
+        homePage.goToSignupLogin();
+
+        // Step 1: Enter initial signup info
+        SignupLoginPage signupLoginPage = new SignupLoginPage(driver);
+        String uniqueEmail = "test_" + UUID.randomUUID() + "@example.com";
+        String name = config.getTestUserName();
+        signupLoginPage.signup(name, uniqueEmail);
+
+        // Step 2: Fill form with missing required fields
+        AccountCreationPage accountCreationPage = new AccountCreationPage(driver);
+        accountCreationPage.fillAccountInformation(
+                null,
+                "", // Empty password
+                null, null, null,
+                false, false
+        );
+
+        // Fill address details with missing required fields
+        accountCreationPage.fillAddressDetails(
+                null, // Empty first name
+                null, // Empty last name
+                null,
+                null, // Empty address
+                null,
+                "United States",
+                "", // Empty state
+                null, // Empty city
+                null, // Empty zipcode
+                null // Empty mobile number
+        );
+
+        // Step 3: Attempt to create account
+        accountCreationPage.createAccount();
+
+        // Step 4: Verify account creation fails
+        Assert.assertFalse(accountCreationPage.isAccountCreated(),
+                "Account should not be created with missing required fields");
+
+        // Verify user remains on the same page (account creation form)
+        Assert.assertTrue(accountCreationPage.getCurrentUrl().contains("/signup"),
+                "User should remain on signup page when required fields are missing");
+    }
+
+}

@@ -11,14 +11,17 @@
                     <include name="validateUserRegistration"/>
                 </methods>
             </class>
-        </classes>
-        <classes>
             <class name="com.automationexercise.ProductSearchAddToCartTest">
                 <methods>
                     <include name="testSearchAndAddProductToCart"/>
                 </methods>
             </class>
+
+            <class name="com.automationexercise.LoginLogoutTest">
+                <methods>
+                    <include name="testSuccessfulLoginAndLogout"/>
+                </methods>
+            </class>
         </classes>
     </test>
-
 </suite>

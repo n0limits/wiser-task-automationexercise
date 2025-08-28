@@ -45,7 +45,7 @@ public abstract class BaseTest {
         setUp(null);
     }
 
-//    @AfterMethod
+  //  @AfterMethod
     public void tearDown(ITestResult result) {
         String testName = result.getMethod().getMethodName();
         String status = result.isSuccess() ? "PASSED" : "FAILED";
@@ -62,17 +62,4 @@ public abstract class BaseTest {
         driver.get(config.getBaseUrl());
     }
 
-    /**
-     * Get current page title
-     */
-    protected String getPageTitle() {
-        return driver.getTitle();
-    }
-
-    /**
-     * Get current URL
-     */
-    protected String getCurrentUrl() {
-        return driver.getCurrentUrl();
-    }
 }

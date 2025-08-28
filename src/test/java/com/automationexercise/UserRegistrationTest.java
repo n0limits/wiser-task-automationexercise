@@ -40,9 +40,10 @@ public class UserRegistrationTest extends BaseTest {
                 false, false
         );
 
+        //TODO do some changes to the country selected with some random selection from the dropdown list
         accountCreationPage.fillAddressDetails(
-                "Test", "User", "TestCompany",
-                "123 Street", "Suite 1", "United States",
+                "Test", "User", null,
+                "123 Street", null, "United States",
                 "California", "Los Angeles", "90001", "1234567890"
         );
 
@@ -52,6 +53,8 @@ public class UserRegistrationTest extends BaseTest {
         // Step 5: Verify account created successfully
         Assert.assertTrue(accountCreationPage.isAccountCreated(),
                 "Account creation success message not visible.");
+        Assert.assertTrue(accountCreationPage.getUrl().contains("/account_created"),
+                "User is not redirected to the account created confirmation page.");
         accountCreationPage.clickRegisteredUserContinueButton();
 
         // Step 6: Verify redirected to home page with user  logged in

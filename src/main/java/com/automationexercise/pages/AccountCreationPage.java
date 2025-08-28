@@ -142,4 +142,8 @@ public class AccountCreationPage extends BasePage {
         continueButton.click();
     }
 
+    public String getUrl() {
+        return getCurrentUrl();
+    }
+
 }

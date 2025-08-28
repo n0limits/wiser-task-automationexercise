@@ -227,14 +227,6 @@ public abstract class BasePage {
         return driver.findElements(locator);
     }
 
-    /**
-     * Gets the current page URL.
-     *
-     * @return the current URL as a string
-     */
-    protected String getCurrentUrl() {
-        return driver.getCurrentUrl();
-    }
 
     /**
      * Gets the current page title.
@@ -333,6 +325,16 @@ public abstract class BasePage {
         } else {
             logger.debug("Skipped dropdown selection for element: {} (value was null/blank)", selectElement);
         }
+    }
+
+
+    /**
+     * Gets the current page URL.
+     *
+     * @return the current URL as a string
+     */
+    protected String getCurrentUrl() {
+        return driver.getCurrentUrl();
     }
 
 }

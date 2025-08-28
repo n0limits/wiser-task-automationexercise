@@ -6,22 +6,10 @@
 
     <test name="CriticalFunctionalityTests">
         <classes>
-            <class name="com.automationexercise.tests.UserRegistrationTests">
+            <class name="com.automationexercise.UserRegistrationTest">
                 <methods>
                     <include name="testSuccessfulUserRegistration"/>
                     <include name="testRegistrationWithExistingEmail"/>
-                </methods>
-            </class>
-            <class name="com.automationexercise.tests.ProductSearchTests">
-                <methods>
-                    <include name="testSearchAndAddProductToCart"/>
-                    <include name="testSearchWithNoResults"/>
-                </methods>
-            </class>
-            <class name="com.automationexercise.tests.LoginLogoutTests">
-                <methods>
-                    <include name="testSuccessfulLoginAndLogout"/>
-                    <include name="testLoginWithInvalidCredentials"/>
                 </methods>
             </class>
         </classes>

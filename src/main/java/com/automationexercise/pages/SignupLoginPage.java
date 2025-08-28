@@ -27,10 +27,28 @@ public class SignupLoginPage extends BasePage {
     @FindBy(xpath = "//button[text()='Login']")
     private WebElement loginButton;
 
+    // --- Error messages
+    @FindBy(xpath = "//p[contains(text(), 'Your email or password is incorrect!')]")
+    private WebElement loginErrorMessage;
+
+    @FindBy(xpath = "//p[contains(text(), 'Email Address already exist!')]")
+    private WebElement signupErrorMessage;
+
+    // --- Page verification
+    @FindBy(xpath = "//h2[contains(text(), 'Login to your account')]")
+    private WebElement loginSectionHeader;
+
+    @FindBy(xpath = "//h2[contains(text(), 'New User Signup!')]")
+    private WebElement signupSectionHeader;
+
+
     public SignupLoginPage(WebDriver driver) {
         super(driver);
     }
 
+    /**
+     * method to sign up
+     */
     public void signup(String name, String email) {
         signupNameInput.clear();
         signupNameInput.sendKeys(name);
@@ -39,6 +57,9 @@ public class SignupLoginPage extends BasePage {
         signupButton.click();
     }
 
+    /**
+     * method to login
+     */
     public void login(String email, String password) {
         loginEmailInput.clear();
         loginEmailInput.sendKeys(email);
@@ -46,5 +67,41 @@ public class SignupLoginPage extends BasePage {
         loginPasswordInput.sendKeys(password);
         loginButton.click();
     }
+
+    /**
+     * Check if login error message is displayed
+     */
+    public boolean isLoginErrorDisplayed() {
+        return isElementVisible(loginErrorMessage);
+    }
+
+    /**
+     * Check if signup error message is displayed (email already exists)
+     */
+    public boolean isSignupErrorDisplayed() {
+        return isElementVisible(signupErrorMessage);
+    }
+
+    /**
+     * Get login error message text
+     */
+    public String getLoginErrorMessage() {
+        return getText(loginErrorMessage);
+    }
+
+    /**
+     * Get signup error message text
+     */
+    public String getSignupErrorMessage() {
+        return getText(signupErrorMessage);
+    }
+
+    /**
+     * Verify login page is loaded by checking both sections are visible
+     */
+    public boolean isLoginPageLoaded() {
+        return isElementVisible(loginSectionHeader) && isElementVisible(signupSectionHeader);
+    }
+
 }
 

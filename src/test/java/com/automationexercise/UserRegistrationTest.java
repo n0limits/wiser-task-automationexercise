@@ -18,7 +18,8 @@ public class UserRegistrationTest extends BaseTest {
 
     @Test
     public void validateUserRegistration() {
-        // Manually initialize driver with default config (I'vre done this as I want to be able to use different browser types)
+        // Manually initialize driver with default config (I'vre done this as I want to be able to use different browser types
+        // if I use the other setUp("driverType"))
         setUp();
         // Step 1: Navigate to homepage
         HomePage homePage = new HomePage(driver);
@@ -53,7 +54,7 @@ public class UserRegistrationTest extends BaseTest {
         // Step 5: Verify account created successfully
         Assert.assertTrue(accountCreationPage.isAccountCreated(),
                 "Account creation success message not visible.");
-        Assert.assertTrue(accountCreationPage.getUrl().contains("/account_created"),
+        Assert.assertTrue(accountCreationPage.getCurrentUrl().contains("/account_created"),
                 "User is not redirected to the account created confirmation page.");
         accountCreationPage.clickRegisteredUserContinueButton();
 

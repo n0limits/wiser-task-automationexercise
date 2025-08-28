@@ -8,8 +8,7 @@
         <classes>
             <class name="com.automationexercise.UserRegistrationTest">
                 <methods>
-                    <include name="testSuccessfulUserRegistration"/>
-                    <include name="testRegistrationWithExistingEmail"/>
+                    <include name="validateUserRegistration"/>
                 </methods>
             </class>
         </classes>

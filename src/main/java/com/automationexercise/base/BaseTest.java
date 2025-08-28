@@ -19,7 +19,15 @@ public abstract class BaseTest {
 
 
     /**
-     * Manual setup method with specific browser
+     * Initializes the WebDriver and navigates to the base URL for test execution.
+     * Supports browser selection through multiple configuration sources with priority order:
+     * System Property (-Dbrowser=firefox) > Method Parameter > Config File.
+     *
+     * @param browser the browser type to use for this test (chrome, firefox, edge).
+     *                If null, uses browser from config file or system property.
+     * @throws RuntimeException if WebDriver creation fails or navigation to base URL fails
+     * @see DriverFactory#createDriver(String)
+     * @see ConfigManager#getBrowser()
      */
     protected void setUp(String browser) {
         logger.info("Setting up test with browser: {}", browser != null ? browser : "default");
@@ -39,12 +47,23 @@ public abstract class BaseTest {
     }
 
     /**
-     * Uses default browser from config
+     * Initializes the WebDriver using the default browser configuration.
+     * This is a convenience method that calls {@link #setUp(String)} with null parameter,
+     * which will use the browser specified in config.properties or system property.
+     *
+     * @throws RuntimeException if WebDriver creation fails or navigation to base URL fails
      */
     protected void setUp() {
         setUp(null);
     }
 
+    /**
+     * Cleans up WebDriver resources after each test method execution.
+     * This method is automatically called by TestNG after each test method.
+     * Logs test execution status and ensures proper WebDriver cleanup to prevent memory leaks.
+     *
+     * @param result the TestNG result object containing test execution information
+     */
     @AfterMethod
     public void tearDown(ITestResult result) {
         String testName = result.getMethod().getMethodName();
@@ -55,7 +74,11 @@ public abstract class BaseTest {
     }
 
     /**
-     * Navigate to home page
+     * Navigates the browser to the application's home page URL.
+     * Uses the base URL configured in config.properties file.
+     * This method can be called during test execution to return to the starting page.
+     *
+     * @throws RuntimeException if navigation fails
      */
     protected void navigateToHome() {
         logger.info("Navigating to home page");

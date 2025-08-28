@@ -9,10 +9,7 @@ import java.util.List;
 
 public class CartPage extends BasePage {
 
-    @FindBy(css = "tr.cart_item")
-    private List<WebElement> cartItems;
-
-    @FindBy(css = "td.cart_description p a")
+    @FindBy(css = "td.cart_description")
     private WebElement productName;
 
     @FindBy(css = "td.cart_price p")
@@ -21,6 +18,19 @@ public class CartPage extends BasePage {
     @FindBy(css = "td.cart_quantity button")
     private WebElement productQuantity;
 
+    @FindBy(css = "tbody tr")
+    private List<WebElement> cartItems;
+
+//    @FindBy(css = "td.cart_description p a")
+//    private WebElement productName;
+//
+//    @FindBy(css = "td.cart_price p")
+//    private WebElement productPrice;
+//
+//    @FindBy(css = "td.cart_quantity button")
+//    private WebElement productQuantity;
+
+    // Additional elements for enhanced functionality
     @FindBy(xpath = "//p[contains(text(), 'Cart is empty')]")
     private WebElement emptyCartMessage;
 
@@ -32,9 +42,13 @@ public class CartPage extends BasePage {
     }
 
     /**
-     * verify if a product is added to the cart
+     * Original method - exact match verification
      */
     public boolean verifyProductInCart(String expectedName, String expectedPrice, int expectedQuantity) {
+        if (isCartEmpty()) {
+            return false;
+        }
+
         String name = getText(productName);
         String price = getText(productPrice);
         String qty = getText(productQuantity);
@@ -45,7 +59,7 @@ public class CartPage extends BasePage {
     }
 
     /**
-     * verify if a product contains text/quantity
+     * Enhanced method - flexible verification for search results
      */
     public boolean verifyProductInCartContains(String expectedNamePart, int expectedQuantity) {
         if (isCartEmpty()) {
@@ -59,6 +73,18 @@ public class CartPage extends BasePage {
                 && qty.equals(String.valueOf(expectedQuantity));
     }
 
+    /**
+     * Enhanced method - flexible verification for search results
+     */
+    public boolean verifyProductInCartName(String expectedNamePart) {
+        if (isCartEmpty()) {
+            return false;
+        }
+
+        String name = getText(productName);
+
+        return name.toLowerCase().contains(expectedNamePart.toLowerCase());
+    }
 
     /**
      * Check if cart is empty
@@ -88,7 +114,6 @@ public class CartPage extends BasePage {
         return getCurrentUrl().contains("/view_cart");
     }
 
-
     /**
      * Get product name from cart (for logging/verification)
      */
@@ -110,4 +135,3 @@ public class CartPage extends BasePage {
         return getText(productQuantity);
     }
 }
-

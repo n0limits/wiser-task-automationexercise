@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="AutomationExerciseTestSuite" verbose="1">
+
+    <parameter name="browser" value="chrome"/>
+    <parameter name="headless" value="false"/>
+
+    <test name="CriticalFunctionalityPositiveTests">
+        <classes>
+            <class name="com.automationexercise.UserRegistrationTest">
+                <methods>
+                    <include name="validateUserRegistration"/>
+                </methods>
+            </class>
+        </classes>
+        <classes>
+            <class name="com.automationexercise.ProductSearchAddToCartTest">
+                <methods>
+                    <include name="testSearchAndAddProductToCart"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>

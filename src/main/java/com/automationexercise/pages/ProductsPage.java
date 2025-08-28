@@ -28,6 +28,16 @@ public class ProductsPage extends BasePage {
     @FindBy(xpath = "//div[@class='features_items']//div[@class='productinfo text-center']")
     private List<WebElement> productInfos;
 
+    // Modal elements for add to cart functionality
+    @FindBy(css = ".modal")
+    private WebElement addToCartModal;
+
+    @FindBy(xpath = "//a[@href='/view_cart']")
+    private WebElement viewCartFromModal;
+
+    @FindBy(xpath = "//button[contains(text(), 'Continue Shopping')]")
+    private WebElement continueShoppingButton;
+
     public ProductsPage(WebDriver driver) {
         super(driver);
     }
@@ -87,6 +97,39 @@ public class ProductsPage extends BasePage {
 
         String firstProductName = getFirstProductName();
         return firstProductName.toLowerCase().contains(searchTerm.toLowerCase());
+    }
+
+    /**
+     * Add first product to cart from search results
+     */
+    public void addFirstProductToCart() {
+        if (productInfos.size() > 0) {
+            WebElement firstProduct = productInfos.get(0);
+            WebElement addToCartBtn = firstProduct.findElement(By.xpath(".//a[contains(@class, 'add-to-cart')]"));
+            click(addToCartBtn);
+        } else {
+            throw new RuntimeException("No products available to add to cart");
+        }
+    }
+
+    /**
+     * Click View Cart from the modal that appears after adding to cart
+     */
+    public void viewCartFromModal() {
+        if (isElementVisible(addToCartModal)) {
+            click(viewCartFromModal);
+        } else {
+            throw new RuntimeException("Add to cart modal is not visible");
+        }
+    }
+
+    /**
+     * Continue shopping from modal (close modal)
+     */
+    public void continueShoppingFromModal() {
+        if (isElementVisible(addToCartModal)) {
+            click(continueShoppingButton);
+        }
     }
 
 }

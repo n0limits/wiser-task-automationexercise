@@ -4,11 +4,12 @@
     <parameter name="browser" value="chrome"/>
     <parameter name="headless" value="false"/>
 
-    <test name="CriticalFunctionalityTests">
+    <test name="CriticalFunctionalityPositiveTests">
         <classes>
-            <class name="com.automationexercise.UserRegistrationTest">
+            <class name="com.automationexercise.ProductSearchAddToCartTest">
                 <methods>
-                    <include name="validateUserRegistration"/>
+                    <include name="testSearchWithEmptyQuery"/>
+                    <include name="testSearchWithNoResults"/>
                 </methods>
             </class>
         </classes>
